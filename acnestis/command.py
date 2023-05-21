@@ -1,9 +1,12 @@
 import os
 import shutil
 import logging
+import tempfile
 from typing import Dict, Any
 
 logger = logging.getLogger(__name__)
+
+# maybe we should have a global variable that highlight a global call of process?
 
 
 def process(source: str, target: str, exist_ok: bool = False) -> None:
@@ -13,12 +16,31 @@ def process(source: str, target: str, exist_ok: bool = False) -> None:
         for file in files:
             if file == ".acnestis.py":
                 logger.debug("Processing {} in {}".format(file, root))
-                os.chdir(root)
-                with open(file, "r") as f:
+
+                abs_file = os.path.join(root, file)
+                with open(abs_file, "r") as f:
                     globals: Dict[str, Any] = {}
                     exec(f.read(), globals)
-                    globals["PROCESSOR"].process(".")
-                os.unlink(file)
+                    processor = globals["PROCESSOR"]
+                    processor.process(
+                        os.path.abspath(os.path.join(source, root)),
+                        os.path.abspath(os.path.join(target, root)),
+                    )
+                os.unlink(abs_file)
+
+                if processor.replace_folder_with_file:
+                    with tempfile.TemporaryDirectory() as tmpdirname:
+                        shutil.move(
+                            os.path.join(root, processor.replace_folder_with_file),
+                            tmpdirname,
+                        )
+                        shutil.rmtree(root)
+                        shutil.copy(
+                            os.path.join(
+                                tmpdirname, processor.replace_folder_with_file
+                            ),
+                            root,
+                        )
 
 
 def console() -> None:
