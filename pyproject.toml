@@ -9,13 +9,14 @@ repository = "https://github.com/oduvan/acnestis"
 
 [tool.poetry.dependencies]
 python = ">3.8"
-black = "^23.3.0"
-mypy = "^1.3.0"
+pyyaml = "^6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
 nox = "^2023.4.22"
 ipdb = "^0.13.13"
+black = "^23.3.0"
+mypy = "^1.3.0"
 
 [tool.poetry.scripts]
 acnestis = 'acnestis.command:console'

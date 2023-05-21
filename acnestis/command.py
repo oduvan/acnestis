@@ -10,18 +10,30 @@ logger = logging.getLogger(__name__)
 
 
 def process(source: str, target: str, exist_ok: bool = False) -> None:
+    def get_process_from_py(code: str) -> Any:
+        globals: Dict[str, Any] = {}
+        exec(code, globals)
+        return globals["PROCESSOR"]
+
+    def get_process_from_yaml(code: str) -> Any:
+        from .yaml import main
+
+        return main(code)
+
     shutil.rmtree(target, ignore_errors=True)
     shutil.copytree(source, target, dirs_exist_ok=exist_ok)
     for root, _, files in os.walk(target):
         for file in files:
-            if file == ".acnestis.py":
+            if file in (".acnestis.py", ".acnestis.yaml"):
                 logger.debug("Processing {} in {}".format(file, root))
 
                 abs_file = os.path.join(root, file)
                 with open(abs_file, "r") as f:
-                    globals: Dict[str, Any] = {}
-                    exec(f.read(), globals)
-                    processor = globals["PROCESSOR"]
+                    if file.endswith(".py"):
+                        processor = get_process_from_py(f.read())
+                    elif file.endswith(".yaml"):
+                        processor = get_process_from_yaml(f.read())
+
                     processor.process(
                         os.path.abspath(os.path.join(source, root)),
                         os.path.abspath(os.path.join(target, root)),

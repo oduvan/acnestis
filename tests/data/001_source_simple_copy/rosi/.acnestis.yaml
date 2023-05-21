@@ -1,0 +1,3 @@
+steps:
+  - name: copy_folder
+    folder: ../mike

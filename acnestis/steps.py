@@ -1,12 +1,14 @@
 import logging
 import os
 
-from typing import Callable, Optional, NewType
+from typing import Callable, Optional, TypeVar
 
 logger = logging.getLogger(__name__)
 
+CallableReturn = Callable[[str, str], None]
 
-def copy_folder(folder: str) -> Callable[[str, str], None]:
+
+def copy_folder(folder: str) -> CallableReturn:
     import tempfile
     import shutil
 
@@ -25,9 +27,7 @@ def copy_folder(folder: str) -> Callable[[str, str], None]:
     return _
 
 
-def concat_files(
-    into_file: str, after_file: Optional[str] = "\n"
-) -> Callable[[str, str], None]:
+def concat_files(into_file: str, after_file: Optional[str] = "\n") -> CallableReturn:
     def _(source_root: str, target: str) -> None:
         files = [
             name
