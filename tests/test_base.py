@@ -1,5 +1,12 @@
-from acnestis.command import main
+import tempfile
+
+from acnestis.command import process
+
+from .tools import folder_to_dict
 
 
-def test_fail():
-    assert main() == True
+def test_source_simple_copy():
+    with tempfile.TemporaryDirectory() as tempfolder:
+        result_folder = folder_to_dict("tests/data/001_source_simple_copy_result")
+        process("tests/data/001_source_simple_copy", tempfolder, exist_ok=True)
+        assert folder_to_dict(tempfolder) == result_folder
