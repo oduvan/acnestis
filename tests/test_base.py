@@ -41,6 +41,15 @@ def test_source_simple_copy_yaml():
 
 def test_concat_poem():
     with tempfile.TemporaryDirectory() as tempfolder:
-        result_folder = folder_to_dict("tests/data/002_concat_poem_result")
         process("tests/data/002_concat_poem", tempfolder, exist_ok=True)
-        assert folder_to_dict(tempfolder) == result_folder
+        assert folder_to_dict(tempfolder) == folder_to_dict(
+            "tests/data/002_concat_poem_result"
+        )
+
+
+def test_concat_poem_overwrite():
+    with tempfile.TemporaryDirectory() as tempfolder:
+        process("tests/data/003_concat_poem_overwrite", tempfolder, exist_ok=True)
+        assert folder_to_dict(tempfolder) == folder_to_dict(
+            "tests/data/003_concat_poem_overwrite_result"
+        )

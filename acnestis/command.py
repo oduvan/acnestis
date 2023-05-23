@@ -33,10 +33,10 @@ def process(source: str, target: str, exist_ok: bool = False) -> None:
                         processor = get_process_from_py(f.read())
                     elif file.endswith(".yaml"):
                         processor = get_process_from_yaml(f.read())
-
+                    rel_root = os.path.relpath(root, target)
                     processor.process(
-                        os.path.abspath(os.path.join(source, root)),
-                        os.path.abspath(os.path.join(target, root)),
+                        os.path.abspath(os.path.join(source, rel_root)),
+                        os.path.abspath(os.path.join(target, rel_root)),
                     )
                 os.unlink(abs_file)
 
