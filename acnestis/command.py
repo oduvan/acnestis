@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 def process(source: str, target: str, exist_ok: bool = False) -> None:
-    def get_process_from_py(code: str) -> Any:
-        globals: Dict[str, Any] = {}
+    def get_process_from_py(code: str, abs_file: str) -> Any:
+        globals: Dict[str, Any] = {"__file__": abs_file}
         exec(code, globals)
         return globals["PROCESSOR"]
 
@@ -27,18 +27,20 @@ def process(source: str, target: str, exist_ok: bool = False) -> None:
             if file in (".acnestis.py", ".acnestis.yaml"):
                 logger.debug("Processing {} in {}".format(file, root))
 
+                rel_root = os.path.relpath(root, target)
                 abs_file = os.path.join(root, file)
+                abs_source_file = os.path.abspath(os.path.join(source, rel_root, file))
                 with open(abs_file, "r") as f:
                     if file.endswith(".py"):
-                        processor = get_process_from_py(f.read())
+                        processor = get_process_from_py(f.read(), abs_source_file)
                     elif file.endswith(".yaml"):
                         processor = get_process_from_yaml(f.read())
-                    rel_root = os.path.relpath(root, target)
-                    processor.process(
-                        os.path.abspath(os.path.join(source, rel_root)),
-                        os.path.abspath(os.path.join(target, rel_root)),
-                    )
+
                 os.unlink(abs_file)
+                processor.process(
+                    os.path.abspath(os.path.join(source, rel_root)),
+                    os.path.abspath(os.path.join(target, rel_root)),
+                )
 
                 if processor.as_file:
                     with tempfile.TemporaryDirectory() as tmpdirname:

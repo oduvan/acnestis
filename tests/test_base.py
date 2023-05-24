@@ -53,3 +53,13 @@ def test_concat_poem_overwrite():
         assert folder_to_dict(tempfolder) == folder_to_dict(
             "tests/data/003_concat_poem_overwrite_result"
         )
+
+
+def test_concat_poem_overwrite_external():
+    with tempfile.TemporaryDirectory() as tempfolder:
+        process(
+            "tests/data/004_concat_poem_overwrite_external", tempfolder, exist_ok=True
+        )
+        assert folder_to_dict(tempfolder) == folder_to_dict(
+            "tests/data/004_concat_poem_overwrite_external_result"
+        )

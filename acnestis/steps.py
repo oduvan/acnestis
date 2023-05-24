@@ -11,9 +11,12 @@ CallableReturn = Callable[[str, str], None]
 def copy_folder(folder: str) -> CallableReturn:
     import tempfile
     import shutil
+    from .command import process as command_process
 
     def _(source_root: str, target: str) -> None:
-        source: str = os.path.join(source_root, folder)
+        source: str = (
+            folder if os.path.isabs(folder) else os.path.join(source_root, folder)
+        )
         with tempfile.TemporaryDirectory() as tmpdirname:
             logging.debug("Copying {} to {}".format(source, tmpdirname))
             shutil.copytree(source, tmpdirname, dirs_exist_ok=True)
@@ -22,7 +25,7 @@ def copy_folder(folder: str) -> CallableReturn:
             shutil.copytree(target, tmpdirname, dirs_exist_ok=True)
 
             logging.debug("Copying {} to {}".format(tmpdirname, target))
-            shutil.copytree(tmpdirname, target, dirs_exist_ok=True)
+            command_process(tmpdirname, target, exist_ok=True)
 
     return _
 
