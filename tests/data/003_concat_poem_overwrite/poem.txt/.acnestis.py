@@ -6,5 +6,5 @@ PROCESSOR = BaseProcessor(
         copy_folder("../poem_origin"),
         concat_files("poem.txt"),
     ],
-    replace_folder_with_file="poem.txt",
+    as_file="poem.txt",
 )

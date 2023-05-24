@@ -3,10 +3,10 @@ from typing import Callable, Iterable, Optional
 
 class BaseProcessor:
     def __init__(
-        self, steps: Iterable[Callable], replace_folder_with_file: Optional[str] = None
+        self, steps: Iterable[Callable], as_file: Optional[str] = None
     ) -> None:
         self.steps = steps
-        self.replace_folder_with_file = replace_folder_with_file
+        self.as_file = as_file
 
     def process(self, source_root: str, target: str):
         for step in self.steps:

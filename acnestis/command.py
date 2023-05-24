@@ -40,17 +40,15 @@ def process(source: str, target: str, exist_ok: bool = False) -> None:
                     )
                 os.unlink(abs_file)
 
-                if processor.replace_folder_with_file:
+                if processor.as_file:
                     with tempfile.TemporaryDirectory() as tmpdirname:
                         shutil.move(
-                            os.path.join(root, processor.replace_folder_with_file),
+                            os.path.join(root, processor.as_file),
                             tmpdirname,
                         )
                         shutil.rmtree(root)
                         shutil.copy(
-                            os.path.join(
-                                tmpdirname, processor.replace_folder_with_file
-                            ),
+                            os.path.join(tmpdirname, processor.as_file),
                             root,
                         )
 
