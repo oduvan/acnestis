@@ -85,4 +85,5 @@ def console() -> None:
     args = parser.parse_args()
     logging.basicConfig(level=LEVELS[args.verbose])
 
-    args.func(args)
+    if hasattr(args, "func"):
+        args.func(args)

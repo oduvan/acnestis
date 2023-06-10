@@ -46,3 +46,31 @@ def concat_files(into_file: str, after_file: Optional[str] = "\n") -> CallableRe
                         fh.write(after_file)
 
     return _
+
+
+def code(code: str) -> CallableReturn:
+    def _(source_root: str, target: str) -> None:
+        exec(code, {"source_root": source_root, "target": target})
+
+    return _
+
+
+def docker(image: str, skip_pull: bool = False) -> CallableReturn:
+    def _(source_root: str, target: str) -> None:
+        import docker as docker_module
+
+        client = docker_module.from_env()
+
+        if not skip_pull:
+            client.images.pull(image)
+
+        volumes = {
+            source_root: {"bind": "/data_input", "mode": "rw"},
+            target: {"bind": "/data_output", "mode": "rw"},
+        }
+
+        container = client.containers.run(image, detach=True, volumes=volumes)
+        container.wait()
+        container.remove()
+
+    return _
