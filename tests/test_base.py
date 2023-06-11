@@ -80,3 +80,10 @@ def test_git_subfolder():
     assert process_dict("tests/data/009_git_subfolder") == folder_to_dict(
         "tests/data/009_git_subfolder_result"
     )
+
+
+@params_removed_file_name
+def test_subprocess(removed_file_name):
+    assert process_dict(
+        "tests/data/010_subprocess_git", removed_file_name
+    ) == folder_to_dict("tests/data/010_subprocess_git_result")
