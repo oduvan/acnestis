@@ -1,0 +1,5 @@
+steps:
+  - name: git
+    url: https://github.com/oduvan/acnestis-test-repo.git
+    branch: subf
+    subfolder: poem.txt

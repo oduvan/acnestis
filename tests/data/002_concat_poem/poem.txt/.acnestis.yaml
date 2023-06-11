@@ -1,0 +1,4 @@
+steps:
+  - name: concat_files
+    into_file: poem.txt
+as_file: poem.txt

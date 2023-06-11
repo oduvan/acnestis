@@ -30,6 +30,33 @@ def copy_folder(folder: str) -> CallableReturn:
     return _
 
 
+def git(url: str, branch: str = "master", subfolder: str = "") -> CallableReturn:
+    import tempfile
+    import shutil
+    from git import Repo
+
+    from .command import process as command_process
+
+    def _(source_root: str, target: str) -> None:
+        with tempfile.TemporaryDirectory() as tmpdirname, tempfile.TemporaryDirectory() as tmpclone:
+            repo = Repo.clone_from(url, tmpclone)
+            repo.git.checkout(branch)
+            shutil.rmtree(os.path.join(tmpclone, ".git"), ignore_errors=True)
+            shutil.copytree(
+                os.path.join(tmpclone, *subfolder.split("/")),
+                tmpdirname,
+                dirs_exist_ok=True,
+            )
+
+            logging.debug("Copying {} to {}".format(target, tmpdirname))
+            shutil.copytree(target, tmpdirname, dirs_exist_ok=True)
+
+            logging.debug("Copying {} to {}".format(tmpdirname, target))
+            command_process(tmpdirname, target, exist_ok=True)
+
+    return _
+
+
 def concat_files(into_file: str, after_file: Optional[str] = "\n") -> CallableReturn:
     def _(source_root: str, target: str) -> None:
         files = [
