@@ -87,3 +87,12 @@ def test_subprocess(removed_file_name):
     assert process_dict(
         "tests/data/010_subprocess_git", removed_file_name
     ) == folder_to_dict("tests/data/010_subprocess_git_result")
+
+
+def test_sub_git_copy():
+    from pprint import pprint
+
+    pprint(process_dict("tests/data/011_sub_git_copy"))
+    # assert process_dict("tests/data/011_sub_git_copy") == folder_to_dict(
+    #     "tests/data/011_sub_git_copy_result"
+    # )

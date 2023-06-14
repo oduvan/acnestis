@@ -30,6 +30,29 @@ def using_folder(folder: str) -> CallableReturn:
     return _
 
 
+def copy(from_folder: str, to_folder: str) -> CallableReturn:
+    import shutil
+
+    def _(source_root: str, target: str) -> None:
+        shutil.copytree(
+            os.path.join(source_root, from_folder),
+            os.path.join(target, to_folder),
+            dirs_exist_ok=True,
+        )
+
+    return _
+
+
+def rm(folder: str) -> CallableReturn:
+    import shutil
+
+    def _(source_root: str, target: str) -> None:
+        source: str = os.path.join(target, folder)
+        shutil.rmtree(source, ignore_errors=True)
+
+    return _
+
+
 def git(url: str, branch: str = "master", subfolder: str = "") -> CallableReturn:
     import tempfile
     import shutil
