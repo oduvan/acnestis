@@ -1,5 +1,4 @@
-from acnestis.processing import BaseProcessor
-from acnestis.steps import copy_folder
+from acnestis.processing import Processor
 
 
 import os
@@ -15,6 +14,6 @@ def duplicates_2(source_root, target):
         )
 
 
-PROCESSOR = BaseProcessor(
+PROCESSOR = Processor(
     [duplicates_2],
 )

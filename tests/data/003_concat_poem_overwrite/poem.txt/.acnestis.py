@@ -1,9 +1,9 @@
-from acnestis.processing import BaseProcessor
-from acnestis.steps import concat_files, copy_folder
+from acnestis.processing import Processor
+from acnestis.steps import concat_files, using_folder
 
-PROCESSOR = BaseProcessor(
+PROCESSOR = Processor(
     [
-        copy_folder("../poem_origin"),
+        using_folder("../poem_origin"),
         concat_files("poem.txt"),
     ],
     as_file="poem.txt",

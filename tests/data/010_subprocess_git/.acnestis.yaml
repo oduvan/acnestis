@@ -1,4 +1,4 @@
-processors:
+steps:
   - folder: sub/main
     steps:
     - name: git

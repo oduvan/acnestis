@@ -1,14 +1,14 @@
 import logging
 import os
 
-from typing import Callable, Optional, TypeVar
+from typing import Callable, Optional, Iterable
 
 logger = logging.getLogger(__name__)
 
 CallableReturn = Callable[[str, str], None]
 
 
-def copy_folder(folder: str) -> CallableReturn:
+def using_folder(folder: str) -> CallableReturn:
     import tempfile
     import shutil
     from .command import process as command_process

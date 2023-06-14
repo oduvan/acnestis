@@ -1,6 +1,6 @@
-from acnestis.processing import BaseProcessor
-from acnestis.steps import copy_folder
+from acnestis.processing import Processor
+from acnestis.steps import using_folder
 
-PROCESSOR = BaseProcessor(
-    [copy_folder("../mike")],
+PROCESSOR = Processor(
+    [using_folder("../mike")],
 )
