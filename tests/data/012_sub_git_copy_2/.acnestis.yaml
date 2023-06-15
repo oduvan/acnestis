@@ -1,0 +1,10 @@
+steps:
+  - name: copy
+    from_folder: .acnestis/main
+    to_folder: sub/main
+  - folder: sub/main
+    steps:
+    - name: git
+      url: https://github.com/oduvan/acnestis-test-repo.git
+  - name: rm
+    folder: .acnestis
