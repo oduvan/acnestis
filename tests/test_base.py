@@ -51,8 +51,14 @@ def test_concat_poem_overwrite():
 
 @params_removed_file_name
 def test_code(removed_file_name):
-    assert process_dict("tests/data/005_code", removed_file_name) == folder_to_dict(
-        "tests/data/005_code_result"
+    assert process_dict("tests/data/004_code", removed_file_name) == folder_to_dict(
+        "tests/data/004_code_result"
+    )
+
+
+def test_code_py_globals():
+    assert process_dict("tests/data/005_code_py_globals") == folder_to_dict(
+        "tests/data/004_code_result"
     )
 
 
@@ -113,5 +119,5 @@ def test_simple_aggregate():
     )
 
 
-# def test_aggregate_two_poems():
-#     from pprint import pprint; pprint(process_dict("tests/data/014_aggregate_two_poems"))
+# def test_print():
+#     from pprint import pprint; pprint(process_dict("tests/data/005_code_py_globals"))
