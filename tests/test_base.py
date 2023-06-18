@@ -99,3 +99,19 @@ def test_sub_git_copy_2():
     assert process_dict("tests/data/012_sub_git_copy_2") == folder_to_dict(
         "tests/data/012_sub_git_copy_2_result"
     )
+
+
+def test_simple_aggregate():
+    assert process_dict("tests/data/013_simple_aggregate") == folder_to_dict(
+        "tests/data/013_simple_aggregate_result"
+    )
+
+
+def test_simple_aggregate():
+    assert process_dict("tests/data/014_aggregate_two_poems") == folder_to_dict(
+        "tests/data/014_aggregate_two_poems_result"
+    )
+
+
+# def test_aggregate_two_poems():
+#     from pprint import pprint; pprint(process_dict("tests/data/014_aggregate_two_poems"))

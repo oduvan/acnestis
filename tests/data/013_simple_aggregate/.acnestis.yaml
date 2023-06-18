@@ -1,0 +1,3 @@
+steps:
+  - name: aggregate
+    into_file: all.json

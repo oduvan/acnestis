@@ -1,0 +1,1 @@
+{"departments": {"js": {"name": "JS"}, "ph": {"name": "PH"}}, "desc": "This is school", "students": [{"name": "Mike", "points": 70}, {"name": "Bob", "points": 23}], "total_students": 2}
