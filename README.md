@@ -2,7 +2,9 @@
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/acnestis.svg)](https://pypi.python.org/pypi/acnestis/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## Acnestis - collect, aggregate and convert
+*this is a draft idea, if you have feedbacks, questions or ideas - feel free to submit an issue*
+
+## [working idea] Acnestis - collect, aggregate and convert
 
 ![Acnestis](https://github.com/oduvan/acnestis/blob/master/title-600.png)
 
