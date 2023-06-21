@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "acnestis"
-version = "0.1.0"
+version = "0.1.1"
 description = "data collection, aggregation and convertion tool"
 authors = ["oduvan <a.lyabah@checkio.org>"]
 readme = "README.md"
